@@ -47,40 +47,6 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
   animation: fall 1.5s ease;
 }
-    /* شاشات صغيرة (موبايل) */
-@media (max-width: 480px) {
-  .container {
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .name {
-    font-size: 1.5rem;
-  }
-
-  .countdown {
-    flex-wrap: nowrap;  /* يمنع العدادات من النزول تحت بعض */
-    gap: 10px;
-    overflow-x: auto;  /* يسمح بالتمرير أفقياً إذا زاد الحجم */
-  }
-
-  .time-box {
-    min-width: 60px;
-    padding: 12px 14px;
-  }
-
-  .time-box span {
-    font-size: 1.5rem;
-  }
-
-  .label {
-    font-size: 0.8rem;
-  }
-}
-
 
     @keyframes fall {
       0% { transform: translateY(-300px) rotate(-15deg); opacity: 0; }
@@ -100,38 +66,33 @@
 
     .celebrate {
       display: inline-block;
-  margin-left: 10px;
-  font-size: 3rem; /* تكبير الحجم */
-  animation: pop 1s infinite alternate;
+      margin-left: 10px;
+      animation: pop 1s infinite alternate;
     }
 
     .countdown {
       display: flex;
-  flex-wrap: nowrap;      /* يمنع العدادات من النزول لتحت */
-  gap: 12px;              /* مسافة بين الصناديق */
-  justify-content: center;
-  overflow-x: auto;       /* التمرير أفقي على الموبايل */
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 5px;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .time-box {
-       background: rgba(255, 255, 255, 0.25);
-  padding: 12px 15px;      /* تقليل المسافات بدون تشويه */
-  border-radius: 18px;
-  min-width: 70px;         /* حجم مناسب للصناديق الصغيرة */
-  flex: 0 0 auto;          /* يمنع الصناديق من الانكماش */
-  animation: float 3s ease-in-out infinite;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 18px 22px;
+      border-radius: 18px;
+      min-width: 95px;
+      animation: float 3s ease-in-out infinite;
     }
 
     .time-box span {
       display: block;
-  font-size: 1.5rem;       /* حجم مناسب للعداد على الموبايل */
-  font-weight: bold;
+      font-size: 2rem;
+      font-weight: bold;
     }
 
     .label {
-     font-size: 0.9rem;
+      font-size: 0.9rem;
       margin-top: 5px;
     }
 
@@ -170,6 +131,40 @@
       height: 30px;
       background: rgba(255,255,255,0.6);
     }
+    /* شاشات صغيرة (موبايل) */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+
+  .countdown {
+    flex-wrap: nowrap;  /* يمنع العدادات من النزول تحت بعض */
+    gap: 10px;
+    overflow-x: auto;  /* يسمح بالتمرير أفقياً إذا زاد الحجم */
+  }
+
+  .time-box {
+    min-width: 60px;
+    padding: 12px 14px;
+  }
+
+  .time-box span {
+    font-size: 1.5rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+}
+
 
     @keyframes fly {
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -178,15 +173,15 @@
 
     /* 🎆 ألعاب نارية */
     .firework {
-     position: fixed;
-  width: 20px;   /* أكبر من قبل */
-  height: 20px;  /* أكبر من قبل */
-  background: #ffeb3b;
-  border-radius: 50%;
-  z-index: 2;
-  opacity: 0.8;
-  pointer-events: none;
-  animation: explode 1s ease-out forwards;
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: #ffeb3b;
+      border-radius: 50%;
+      z-index: 2;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: explode 1s ease-out forwards;
     }
 
     @keyframes explode {
@@ -202,6 +197,7 @@
       display: inline-block;
       color: #ff4d6d;
       font-size: 2rem;
+      /* margin-bottom: 5px; */
       padding-bottom: 7px;
       animation: beat 1s infinite;
       vertical-align: middle;
@@ -217,8 +213,8 @@
     <img src="dina.jpg" alt="Dina" class="profile" />
     <h1>🎉 Birthday Countdown 🎉</h1>
     <h2 class="name">
-      <span>DODO</span>
-      <span class="heart">❤️</span>
+      <div><span>DODO</span>
+      <span class="heart">❤️</span></div>
       <!-- <span class="celebrate">🎊</span> -->
     </h2>
 
@@ -308,33 +304,7 @@ setInterval(() => {
   profile.offsetHeight; 
   profile.style.animation = 'fall 1.5s ease';
 }, 5000);
-    function createFirework(){
-  const fire = document.createElement("div");
-  fire.className = "firework";
-
-  // موقع عشوائي
-  const x = (Math.random() * 80 + 10) + "vw";
-  const y = (Math.random() * 50 + 10) + "vh";
-  fire.style.left = x;
-  fire.style.top = y;
-
-  // حركة عشوائية أكبر
-  fire.style.setProperty('--x', (Math.random() * 400 - 200) + 'px'); // نطاق حركة أوسع
-  fire.style.setProperty('--y', (Math.random() * 400 - 200) + 'px');
-
-  document.body.appendChild(fire);
-  setTimeout(() => fire.remove(), 1200); // مدة أطول لتظهر أكبر
-}
-
-setInterval(createFirework, 500); // توليد صاروخ كل نصف ثانية
-
 
   </script>
 </body>
 </html>
-
-
-
-
-
-
