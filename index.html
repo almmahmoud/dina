@@ -47,6 +47,40 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
   animation: fall 1.5s ease;
 }
+    /* شاشات صغيرة (موبايل) */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+
+  .countdown {
+    flex-wrap: nowrap;  /* يمنع العدادات من النزول تحت بعض */
+    gap: 10px;
+    overflow-x: auto;  /* يسمح بالتمرير أفقياً إذا زاد الحجم */
+  }
+
+  .time-box {
+    min-width: 60px;
+    padding: 12px 14px;
+  }
+
+  .time-box span {
+    font-size: 1.5rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+}
+
 
     @keyframes fall {
       0% { transform: translateY(-300px) rotate(-15deg); opacity: 0; }
@@ -273,4 +307,5 @@ setInterval(() => {
   </script>
 </body>
 </html>
+
 
