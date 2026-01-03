@@ -107,9 +107,11 @@
 
     .countdown {
       display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
+  flex-wrap: nowrap;  /* يمنع النزول لتحت */
+  gap: 15px;
+  justify-content: center;
+  overflow-x: auto;   /* يسمح بالتمرير أفقياً على الموبايل */
+  -webkit-overflow-scrolling: touch; 
     }
 
     .time-box {
@@ -328,6 +330,7 @@ setInterval(createFirework, 500); // توليد صاروخ كل نصف ثاني�
   </script>
 </body>
 </html>
+
 
 
 
