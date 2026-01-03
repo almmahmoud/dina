@@ -100,8 +100,9 @@
 
     .celebrate {
       display: inline-block;
-      margin-left: 10px;
-      animation: pop 1s infinite alternate;
+  margin-left: 10px;
+  font-size: 3rem; /* تكبير الحجم */
+  animation: pop 1s infinite alternate;
     }
 
     .countdown {
@@ -173,15 +174,15 @@
 
     /* 🎆 ألعاب نارية */
     .firework {
-      position: fixed;
-      width: 5px;
-      height: 5px;
-      background: #ffeb3b;
-      border-radius: 50%;
-      z-index: 2;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: explode 1s ease-out forwards;
+     position: fixed;
+  width: 20px;   /* أكبر من قبل */
+  height: 20px;  /* أكبر من قبل */
+  background: #ffeb3b;
+  border-radius: 50%;
+  z-index: 2;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: explode 1s ease-out forwards;
     }
 
     @keyframes explode {
@@ -303,9 +304,30 @@ setInterval(() => {
   profile.offsetHeight; 
   profile.style.animation = 'fall 1.5s ease';
 }, 5000);
+    function createFirework(){
+  const fire = document.createElement("div");
+  fire.className = "firework";
+
+  // موقع عشوائي
+  const x = (Math.random() * 80 + 10) + "vw";
+  const y = (Math.random() * 50 + 10) + "vh";
+  fire.style.left = x;
+  fire.style.top = y;
+
+  // حركة عشوائية أكبر
+  fire.style.setProperty('--x', (Math.random() * 400 - 200) + 'px'); // نطاق حركة أوسع
+  fire.style.setProperty('--y', (Math.random() * 400 - 200) + 'px');
+
+  document.body.appendChild(fire);
+  setTimeout(() => fire.remove(), 1200); // مدة أطول لتظهر أكبر
+}
+
+setInterval(createFirework, 500); // توليد صاروخ كل نصف ثانية
+
 
   </script>
 </body>
 </html>
+
 
 
