@@ -132,7 +132,7 @@
       background: rgba(255,255,255,0.6);
     }
     /* شاشات صغيرة (موبايل) */
-@media (max-width: 460px) {
+@media (max-width: 480px) {
   .container {
     padding: 20px;
   }
@@ -172,17 +172,27 @@
     }
 
     /* 🎆 ألعاب نارية */
-    .firework {
-      position: fixed;
-      width: 5px;
-      height: 5px;
-      background: #ffeb3b;
-      border-radius: 50%;
-      z-index: 2;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: explode 1s ease-out forwards;
-    }
+ /* 🔥 نار كبيرة مثل البلالين */
+.firework {
+  position: fixed;
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.9;
+  animation: flyFire 3s linear forwards;
+}
+
+/* ألوان مختلفة للنار */
+.firework.red { background: #ff4d4d; }
+.firework.yellow { background: #ffeb3b; }
+.firework.blue { background: #4d79ff; }
+.firework.pink { background: #ff6ec4; }
+
+@keyframes flyFire {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120vh) scale(0.7); opacity: 0; }
+}
+
 
     @keyframes explode {
       0% { transform: translate(0,0) scale(1); opacity: 1; }
@@ -204,6 +214,29 @@
     }
 
     @keyframes beat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+
+    /* 🚀 صاروخ ينطلق للأعلى */
+.rocket {
+  position: fixed;
+  width: 8px;
+  height: 30px;
+  background: #fff;
+  border-radius: 4px;
+  z-index: 3;
+  pointer-events: none;
+  animation: launch 2s linear forwards;
+}
+
+/* انفجار الصاروخ */
+.explosion {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.9;
+}
 
   </style>
 </head>
@@ -305,7 +338,100 @@ setInterval(() => {
   profile.style.animation = 'fall 1.5s ease';
 }, 5000);
 
+function createBigFirework() {
+  const fire = document.createElement("div");
+  fire.className = "firework";
+
+  // لون عشوائي
+  const colors = ["red", "yellow", "blue", "pink"];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  fire.classList.add(color);
+
+  // حجم عشوائي مثل البالون
+  const size = Math.random() * 30 + 50; // 50px - 80px
+  fire.style.width = size + "px";
+  fire.style.height = size + "px";
+
+  // موقع أفقي عشوائي
+  fire.style.left = Math.random() * 100 + "vw";
+
+  // يبدأ من الأسفل
+  fire.style.bottom = "-90px";
+
+  document.body.appendChild(fire);
+
+  // إزالة العنصر بعد انتهاء الأنيميشن
+  setTimeout(() => fire.remove(), 3000);
+}
+
+// توليد النار كل نصف ثانية
+setInterval(createBigFirework, 500);
+function launchRocketRandom() {
+  const rocket = document.createElement("div");
+  rocket.className = "rocket";
+
+  // موقع أفقي عشوائي
+  const left = Math.random() * 100 + "vw";
+  rocket.style.left = left;
+  rocket.style.bottom = "-40px";
+
+  document.body.appendChild(rocket);
+
+  // ارتفاع عشوائي: من منتصف الشاشة (50vh) إلى السقف (100vh)
+  const maxHeight = Math.random() * 50 + 50; // 50vh - 100vh
+
+  // مدة الصاروخ للوصول للارتفاع
+  const duration = 2000 + Math.random()*1000; // 2 - 3 ثواني
+
+  // تحريك الصاروخ
+  rocket.animate([
+    { transform: "translateY(0)" },
+    { transform: `translateY(-${maxHeight}vh)` }
+  ], {
+    duration: duration,
+    easing: "ease-out",
+    fill: "forwards"
+  });
+
+  // بعد انتهاء التحرك، انفجار
+  setTimeout(() => {
+    rocket.remove();
+
+    const explosion = document.createElement("div");
+    explosion.className = "explosion";
+    explosion.style.left = left;
+    explosion.style.bottom = `calc(${maxHeight}vh - 30px)`;
+    document.body.appendChild(explosion);
+
+    // إنشاء عدة دوائر صغيرة للانفجار
+    for (let i = 0; i < 8; i++) {
+      const particle = document.createElement("div");
+      particle.style.width = particle.style.height = (Math.random() * 10 + 5) + "px";
+      particle.style.background = ["#ff4d4d","#ffeb3b","#4d79ff","#ff6ec4"][Math.floor(Math.random()*4)];
+      particle.style.borderRadius = "50%";
+      particle.style.position = "absolute";
+      particle.style.left = "0";
+      particle.style.bottom = "0";
+
+      const x = (Math.random()*100 - 50);
+      const y = (Math.random()*100 - 50);
+
+      particle.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${x}px,${y}px)`, opacity: 0 }
+      ], { duration: 800, easing: "ease-out", fill: "forwards" });
+
+      explosion.appendChild(particle);
+    }
+
+    setTimeout(() => explosion.remove(), 1000);
+
+  }, duration);
+}
+
+// إطلاق صاروخ كل 0.8 ثانية
+setInterval(launchRocketRandom, 800);
+
   </script>
 </body>
 </html>
-
