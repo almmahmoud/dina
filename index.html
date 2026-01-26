@@ -26,6 +26,7 @@
       border-radius: 25px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
       animation: fadeIn 1.5s ease;
+      width: min(520px, 92vw);
     }
 
     h1 {
@@ -36,17 +37,39 @@
       animation: glow 2s infinite alternate;
     }
 
-   .profile {
-  width: 170px;
-  height: 170px;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 50%;
-  margin-bottom: 15px;
-  border: 4px solid rgba(255,255,255,0.6);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  animation: fall 1.5s ease;
-}
+    .profile {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      border: 4px solid rgba(255,255,255,0.6);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      animation: fall 1.5s ease;
+    }
+
+    /* ✅ مكان رسالة الحب */
+    .love-note {
+      margin: 12px auto 18px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      direction: rtl;
+      text-align: center;
+      font-family: "Cairo", "Tahoma", Arial, sans-serif;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      max-width: 440px;
+      user-select: text;
+    }
+    /* لو عايزها قابلة للتعديل */
+    .love-note[contenteditable="true"]{
+      outline: none;
+      cursor: text;
+    }
 
     @keyframes fall {
       0% { transform: translateY(-300px) rotate(-15deg); opacity: 0; }
@@ -59,16 +82,20 @@
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: 2px;
-      margin-bottom: 18px;
+      margin-bottom: 6px;
       color: #ffffff;
       text-shadow: 0 0 15px rgba(255,255,255,0.6);
     }
 
-    .celebrate {
+    .heart {
       display: inline-block;
-      margin-left: 10px;
-      animation: pop 1s infinite alternate;
+      color: #ff4d6d;
+      font-size: 2rem;
+      padding-bottom: 7px;
+      animation: beat 1s infinite;
+      vertical-align: middle;
     }
+    @keyframes beat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
 
     .countdown {
       display: flex;
@@ -121,7 +148,6 @@
       z-index: 1;
       opacity: 0.9;
     }
-
     .balloon::after {
       content: '';
       position: absolute;
@@ -131,125 +157,470 @@
       height: 30px;
       background: rgba(255,255,255,0.6);
     }
-    /* شاشات صغيرة (موبايل) */
-@media (max-width: 480px) {
-  .container {
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .name {
-    font-size: 1.5rem;
-  }
-
-  .countdown {
-    flex-wrap: nowrap;  /* يمنع العدادات من النزول تحت بعض */
-    gap: 10px;
-    overflow-x: auto;  /* يسمح بالتمرير أفقياً إذا زاد الحجم */
-  }
-
-  .time-box {
-    min-width: 60px;
-    padding: 12px 14px;
-  }
-
-  .time-box span {
-    font-size: 1.5rem;
-  }
-
-  .label {
-    font-size: 0.8rem;
-  }
-}
-
-
     @keyframes fly {
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
       100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
-    /* 🎆 ألعاب نارية */
- /* 🔥 نار كبيرة مثل البلالين */
-.firework {
+    /* 🔥 نار كبيرة */
+    .firework {
+      position: fixed;
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.9;
+      animation: flyFire 3s linear forwards;
+    }
+    .firework.red { background: #ff4d4d; }
+    .firework.yellow { background: #ffeb3b; }
+    .firework.blue { background: #4d79ff; }
+    .firework.pink { background: #ff6ec4; }
+
+    @keyframes flyFire {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(0.7); opacity: 0; }
+    }
+
+    /* 🚀 صاروخ */
+    .rocket {
+      position: fixed;
+      width: 8px;
+      height: 30px;
+      background: #fff;
+      border-radius: 4px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .explosion {
+      position: fixed;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.9;
+    }
+.age-scene{
   position: fixed;
-  border-radius: 50%;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.9;
-  animation: flyFire 3s linear forwards;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
 }
 
-/* ألوان مختلفة للنار */
-.firework.red { background: #ff4d4d; }
-.firework.yellow { background: #ffeb3b; }
-.firework.blue { background: #4d79ff; }
-.firework.pink { background: #ff6ec4; }
+.age-scene.show{ display:flex; }
 
-@keyframes flyFire {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-120vh) scale(0.7); opacity: 0; }
+.age-card{
+  width: 150px;
+  height: 150px;
+  border-radius: 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 4.2rem;
+  font-weight: 800;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.18);
+  font-family: "Poppins", Arial, sans-serif;
 }
 
+.age21{
+  transform: translateX(-120vw);
+  animation: ageInLeft 1s cubic-bezier(.2,.9,.2,1) forwards;
+}
 
-    @keyframes explode {
-      0% { transform: translate(0,0) scale(1); opacity: 1; }
-      100% {
-        transform: translate(var(--x), var(--y)) scale(0.5);
-        opacity: 0;
+.age22{
+  transform: translateX(120vw);
+  animation: ageInRight 1s cubic-bezier(.2,.9,.2,1) forwards;
+  opacity: 0.85;
+}
+
+.handover{
+  width: min(330px, 86vw);
+  padding: 18px 18px 14px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+  text-align:center;
+  transform: scale(0.85);
+  opacity: 0;
+  animation: centerPop 0.9s ease forwards;
+  animation-delay: 0.9s;
+}
+
+.shake{
+  font-size: 3rem;
+  animation: handshake 0.35s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+
+.crown{
+  font-size: 2.2rem;
+  margin-top: 6px;
+  opacity: 0;
+  transform: translateY(-18px) scale(0.6);
+  animation: crownDrop 0.9s ease forwards;
+  animation-delay: 1.7s;
+}
+
+.subtitle{
+  margin-top: 10px;
+  font-family: "Cairo","Tahoma",Arial,sans-serif;
+  direction: rtl;
+  font-size: 1.05rem;
+  opacity: 0.95;
+}
+
+@keyframes ageInLeft {
+  0% { transform: translateX(-120vw) rotate(-8deg); opacity:0; }
+  100% { transform: translateX(0) rotate(0deg); opacity:1; }
+}
+@keyframes ageInRight {
+  0% { transform: translateX(120vw) rotate(8deg); opacity:0; }
+  100% { transform: translateX(0) rotate(0deg); opacity:0.9; }
+}
+@keyframes centerPop {
+  0% { opacity: 0; transform: scale(0.75); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes handshake {
+  0% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(6deg) scale(1.06); }
+  100% { transform: rotate(-6deg) scale(1); }
+}
+@keyframes crownDrop {
+  0% { opacity: 0; transform: translateY(-18px) scale(0.6); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+
+/* 🏆 لحظة “22” تكبر وتلمع */
+.age22.levelup{
+  opacity: 1;
+  animation: levelUp 0.9s ease forwards;
+}
+@keyframes levelUp {
+  0% { transform: scale(1); filter: blur(0px); }
+  60% { transform: scale(1.18); filter: blur(0px); }
+  100% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(255,235,59,0.8)); }
+}
+
+    /* ✅ مطر رسايل من فوق */
+    .falling-msg {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      font-family: "Cairo", "Tahoma", Arial, sans-serif;
+      font-size: 1.05rem;
+      direction: rtl;
+      white-space: nowrap;
+      backdrop-filter: blur(6px);
+      animation: msgDrop linear forwards;
+    }
+
+    @keyframes msgDrop {
+      0%   { transform: translate(-50%, -80px) rotate(-6deg); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--drift)), 120vh) rotate(8deg); opacity: 0; }
+    }
+
+    /* ✅ كونفيتي */
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 14px;
+      z-index: 998;
+      opacity: 0.95;
+      border-radius: 3px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(-30px) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ✅ قلوب طايرة */
+    .float-heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 22px;
+      z-index: 997;
+      pointer-events: none;
+      animation: heartUp linear forwards;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+    }
+    @keyframes heartUp {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
+    }
+
+    /* موبايل */
+    @media (max-width: 480px) {
+      .container { padding: 20px; }
+      h1 { font-size: 1.8rem; }
+      .name { font-size: 1.5rem; }
+      .love-note { font-size: 0.98rem; }
+      .countdown {
+        flex-wrap: nowrap;
+        gap: 10px;
+        overflow-x: auto;
       }
+      .time-box { min-width: 60px; padding: 12px 14px; }
+      .time-box span { font-size: 1.5rem; }
+      .label { font-size: 0.8rem; }
     }
 
-    /* ❤️ قلب جنب الاسم */
-    .heart {
-      display: inline-block;
-      color: #ff4d6d;
-      font-size: 2rem;
-      /* margin-bottom: 5px; */
-      padding-bottom: 7px;
-      animation: beat 1s infinite;
-      vertical-align: middle;
-    }
-
-    @keyframes beat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
-
-    /* 🚀 صاروخ ينطلق للأعلى */
-.rocket {
-  position: fixed;
-  width: 8px;
-  height: 30px;
-  background: #fff;
-  border-radius: 4px;
-  z-index: 3;
-  pointer-events: none;
-  animation: launch 2s linear forwards;
+    @keyframes titleOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.6); }
 }
 
-/* انفجار الصاروخ */
-.explosion {
+@keyframes titleIn {
+  0% { opacity: 0; transform: scale(1.4); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.title-out {
+  animation: titleOut 0.8s ease forwards;
+}
+
+.title-in {
+  animation: titleIn 1s ease forwards;
+}
+.age-scene{
   position: fixed;
-  width: 0;
-  height: 0;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+}
+
+.age-scene.show{ display:flex; }
+
+.age-card{
+  width: 150px;
+  height: 150px;
+  border-radius: 26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 4.2rem;
+  font-weight: 800;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.18);
+  font-family: "Poppins", Arial, sans-serif;
+  position: relative;
+}
+
+.impact{
+  width: min(360px, 88vw);
+  padding: 16px 16px 12px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+  text-align:center;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: impactPop 0.8s ease forwards;
+  animation-delay: 0.9s;
+}
+
+.subtitle{
+  margin-top: 8px;
+  font-family: "Cairo","Tahoma",Arial,sans-serif;
+  direction: rtl;
+  font-size: 1.05rem;
+  opacity: 0.95;
+}
+
+.boom{
+  font-size: 3rem;
+  opacity: 0;
+  transform: scale(0.3);
+}
+
+@keyframes impactPop{
+  0% { opacity: 0; transform: scale(0.78); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* دخول 21 من الشمال */
+.age21.enter{
+  animation: enterLeft 0.9s cubic-bezier(.2,.9,.2,1) forwards;
+}
+@keyframes enterLeft{
+  0% { transform: translateX(-120vw) rotate(-8deg); opacity: 0; }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+
+/* دخول 22 من اليمين بسرعة (rush) */
+.age22.rush{
+  animation: rushRight 0.7s cubic-bezier(.1,1,.1,1) forwards;
+}
+@keyframes rushRight{
+  0% { transform: translateX(120vw) rotate(10deg); opacity: 0; }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+
+/* 💥 لحظة الصدمة */
+.boom.show{
+  animation: boomPop 0.35s ease forwards;
+}
+@keyframes boomPop{
+  0% { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+  100% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+}
+
+/* 21 تتزحلق وتطير برا */
+.age21.knocked{
+  animation: knockedOut 0.9s ease forwards;
+}
+@keyframes knockedOut{
+  0% { transform: translateX(0) rotate(0deg); }
+  40% { transform: translateX(80px) rotate(10deg); }
+  100% { transform: translateX(-140vw) rotate(-25deg); opacity: 0; }
+}
+
+/* 22 تاخد مكانها في النص وتلمع */
+.age22.center{
+  animation: takeCenter 0.8s ease forwards;
+}
+@keyframes takeCenter{
+  0% { transform: translateX(0) scale(1); }
+  100% { transform: translateX(-60px) scale(1.12); filter: drop-shadow(0 0 18px rgba(255,235,59,0.9)); }
+}
+.age-scene{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  z-index: 3000;
+}
+
+.age-scene.show{ display:flex; }
+
+.age-num{
+  position: absolute;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0.9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  font-family: "Poppins", Arial, sans-serif;
 }
+
+/* 21 ثابتة في النص */
+#age21{
+  transform: translateX(0);
+}
+
+/* 22 تبدأ بره الشاشة */
+#age22{
+  transform: translateX(140vw);
+}
+
+/* 22 تهجم وتخبط */
+#age22.hit{
+  animation: hitCenter 0.6s cubic-bezier(.1,1,.1,1) forwards;
+}
+@keyframes hitCenter{
+  0%   { transform: translateX(140vw) scale(1); }
+  70%  { transform: translateX(0) scale(1.15); }
+  100% { transform: translateX(0) scale(1.1); }
+}
+
+/* 21 تتخبط وتطير */
+#age21.flyout{
+  animation: flyOut 0.6s ease forwards;
+}
+@keyframes flyOut{
+  0% { transform: translateX(0) rotate(0); opacity:1; }
+  100% { transform: translateX(-160vw) rotate(-35deg); opacity:0; }
+}
+
+/* 22 تثبت مكانها وتلمع */
+#age22.levelup{
+  animation: levelUp 0.8s ease forwards;
+}
+@keyframes levelUp{
+  0% { filter:none; }
+  100% {
+    filter: drop-shadow(0 0 25px rgba(255,235,59,0.9));
+    transform: translateX(0) scale(1.18);
+  }
+}
+
 
   </style>
 </head>
+<!-- 💥 Clean Age Knockout -->
+<div id="ageScene" class="age-scene">
+  <div id="age21" class="age-num">21</div>
+  <div id="age22" class="age-num">22</div>
+</div>
+
 <body>
 
   <div class="container">
+    <!-- 🎭 Age Handover Scene -->
+<div id="ageScene" class="age-scene">
+  <div class="age-card age21">21</div>
+
+  <div class="handover">
+    <div class="shake">🤝</div>
+    <div class="crown">👑</div>
+    <div class="subtitle">21 سنة بتسلّم 22 سنة ✨</div>
+  </div>
+
+  <div class="age-card age22">22</div>
+</div>
+
     <img src="dina.jpg" alt="Dina" class="profile" />
-    <h1>🎉 Birthday Countdown 🎉</h1>
+
+    <h1 id="mainTitle">🎉 Birthday Countdown 🎉</h1>
+    <!-- <h1 >🎉 It’s DODO’s Day 🎉</h1> -->
+
+
     <h2 class="name">
-      <div><span>DODO</span>
-      <span class="heart">❤️</span></div>
-      <!-- <span class="celebrate">🎊</span> -->
+      <div><span>DODO</span> <span class="heart">❤️</span></div>
     </h2>
+
+    <!-- ✅ رسالة الحب (غير النص براحتك) -->
+    <!-- <div id="loveNote" class="love-note" contenteditable="true">
+      يا أجمل دودو في الدنيا ❤️<br>
+      بحبك قد السما… ووجودك بيخلّي كل يوم أحلى 🌙✨
+    </div> -->
 
     <div id="countdown" class="countdown">
       <div class="time-box">
@@ -269,168 +640,425 @@
         <div class="label">Seconds</div>
       </div>
     </div>
+
     <h2 id="message"></h2>
   </div>
 
   <script>
-    // 🎂 العد التنازلي
+    /* =========================
+       1) Countdown (زي ما عندك)
+    ========================= */
     function getNextBirthday() {
       const now = new Date();
       let year = now.getFullYear();
-      let birthday = new Date(year, 0, 27);
-      if(now > birthday) birthday = new Date(year+1,0,27);
+      // 27 يناير (month 0 = Jan)
+      let birthday = new Date(year, 0, 27, 0, 0, 0, 0);
+      if (now > birthday) birthday = new Date(year + 1, 0, 27, 0, 0, 0, 0);
       return birthday;
     }
     const birthdayDate = getNextBirthday();
 
     function updateCountdown() {
-      const now = new Date().getTime();
+      const now = Date.now();
       const distance = birthdayDate.getTime() - now;
-      if(distance <= 0){
-        document.getElementById("countdown").style.display="none";
-        document.getElementById("message").innerHTML="🎂 Happy Birthday Dina! 🎂";
+
+      if (distance <= 0) {
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("message").innerHTML = "🎂 Happy Birthday Dina! 🎂";
         document.getElementById("message").classList.add("birthday");
+        // ✅ شغّل احتفالات الـ 12 فوراً لما نوصل للعيد ميلاد
+        triggerMidnightParty();
         return;
       }
-      document.getElementById("days").innerText = Math.floor(distance/(1000*60*60*24));
-      document.getElementById("hours").innerText = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-      document.getElementById("minutes").innerText = Math.floor((distance%(1000*60*60))/(1000*60));
-      document.getElementById("seconds").innerText = Math.floor((distance%(1000*60))/1000);
+
+      document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
     }
     updateCountdown();
-    setInterval(updateCountdown,1000);
+    setInterval(updateCountdown, 1000);
 
+    /* =========================
+       2) مؤثراتك الحالية
+    ========================= */
     // 🎈 بلالين
-    function createBalloon(){
-      const balloon=document.createElement("div");
-      balloon.className="balloon";
-      balloon.style.left=Math.random()*100+"vw";
-      const size=Math.random()*30+40;
-      balloon.style.width=size+"px";
-      balloon.style.height=size*1.2+"px";
-      balloon.style.animationDuration=(Math.random()*5+6)+"s";
+    function createBalloon() {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * 100 + "vw";
+      const size = Math.random() * 30 + 40;
+      balloon.style.width = size + "px";
+      balloon.style.height = size * 1.2 + "px";
+      balloon.style.animationDuration = (Math.random() * 5 + 6) + "s";
       document.body.appendChild(balloon);
-      setTimeout(()=>balloon.remove(),12000);
+      setTimeout(() => balloon.remove(), 12000);
     }
-    setInterval(createBalloon,500);
+    let balloonTimer = setInterval(createBalloon, 500);
 
-    // 🎆 ألعاب نارية
-    function createFirework(){
-      const fire=document.createElement("div");
-      fire.className="firework";
-      const x=(Math.random()*80+10)+"vw";
-      const y=(Math.random()*50+10)+"vh";
-      fire.style.left=x;
-      fire.style.top=y;
-      fire.style.setProperty('--x',(Math.random()*200-100)+'px');
-      fire.style.setProperty('--y',(Math.random()*200-100)+'px');
+    // 🔥 نار كبيرة طايرة
+    function createBigFirework() {
+      const fire = document.createElement("div");
+      fire.className = "firework";
+      const colors = ["red", "yellow", "blue", "pink"];
+      fire.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+      const size = Math.random() * 30 + 50;
+      fire.style.width = size + "px";
+      fire.style.height = size + "px";
+      fire.style.left = Math.random() * 100 + "vw";
+      fire.style.bottom = "-90px";
       document.body.appendChild(fire);
-      setTimeout(()=>fire.remove(),1000);
+      setTimeout(() => fire.remove(), 3000);
     }
-    setInterval(createFirework,300);
+    let fireTimer = setInterval(createBigFirework, 500);
+
+    // صورة تقع كل شوية
     const profile = document.querySelector('.profile');
+    setInterval(() => {
+      profile.style.animation = 'none';
+      profile.offsetHeight;
+      profile.style.animation = 'fall 1.5s ease';
+    }, 5000);
+    function burstCelebration(durationMs = 3500){
+  // كونفيتي كتير مرة واحدة + على دفعات
+  for(let i=0;i<60;i++) createConfettiPiece();
 
-setInterval(() => {
-  // إزالة الأنيميشن لإعادة تشغيلها
-  profile.style.animation = 'none';
-  // forcing reflow لإعادة تطبيق الأنيميشن
-  profile.offsetHeight; 
-  profile.style.animation = 'fall 1.5s ease';
-}, 5000);
+  const confInt = setInterval(() => {
+    for(let i=0;i<14;i++) createConfettiPiece();
+  }, 140);
 
-function createBigFirework() {
-  const fire = document.createElement("div");
-  fire.className = "firework";
+  // قلوب كتير
+  const heartInt = setInterval(() => {
+    for(let i=0;i<6;i++) createFloatingHeart();
+  }, 180);
 
-  // لون عشوائي
-  const colors = ["red", "yellow", "blue", "pink"];
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  fire.classList.add(color);
+  // مطر رسايل سريع
+  const msgInt = setInterval(() => {
+    // createFallingMessage("كل سنة وانتي طيبة يا دودو ❤️");
+  }, 160);
 
-  // حجم عشوائي مثل البالون
-  const size = Math.random() * 30 + 50; // 50px - 80px
-  fire.style.width = size + "px";
-  fire.style.height = size + "px";
+  // نار كبيرة إضافية
+  const fireInt = setInterval(() => {
+    createBigFirework();
+  }, 180);
 
-  // موقع أفقي عشوائي
-  fire.style.left = Math.random() * 100 + "vw";
+  // بعد مدة: وقف الـ burst
+  setTimeout(() => {
+    clearInterval(confInt);
+    clearInterval(heartInt);
+    clearInterval(msgInt);
+    clearInterval(fireInt);
+  }, durationMs);
+}
+function showAgeHandoverScene(){
+  const scene = document.getElementById("ageScene");
+  const age22 = scene.querySelector(".age22");
 
-  // يبدأ من الأسفل
-  fire.style.bottom = "-90px";
+  scene.classList.add("show");
 
-  document.body.appendChild(fire);
+  // بعد ما المصافحة والتاج يطلعوا.. نخلي 22 تعمل Level Up
+  setTimeout(() => {
+    age22.classList.add("levelup");
+    burstCelebration(3800);
+    // كمان ممكن تطلق كونفيتي زيادة هنا
+    for(let i=0;i<25;i++) createConfettiPiece();
+  }, 2200);
 
-  // إزالة العنصر بعد انتهاء الأنيميشن
-  setTimeout(() => fire.remove(), 3000);
+  // اقفل المشهد بعد شوية
+  setTimeout(() => {
+    scene.classList.remove("show");
+    age22.classList.remove("levelup");
+  }, 5200);
 }
 
-// توليد النار كل نصف ثانية
-setInterval(createBigFirework, 500);
-function launchRocketRandom() {
-  const rocket = document.createElement("div");
-  rocket.className = "rocket";
+    // 🚀 صاروخ عشوائي + انفجار
+    function launchRocketRandom() {
+      const rocket = document.createElement("div");
+      rocket.className = "rocket";
 
-  // موقع أفقي عشوائي
-  const left = Math.random() * 100 + "vw";
-  rocket.style.left = left;
-  rocket.style.bottom = "-40px";
+      const left = Math.random() * 100 + "vw";
+      rocket.style.left = left;
+      rocket.style.bottom = "-40px";
+      document.body.appendChild(rocket);
 
-  document.body.appendChild(rocket);
+      const maxHeight = Math.random() * 50 + 50; // 50vh - 100vh
+      const duration = 2000 + Math.random() * 1000; // 2 - 3 sec
 
-  // ارتفاع عشوائي: من منتصف الشاشة (50vh) إلى السقف (100vh)
-  const maxHeight = Math.random() * 50 + 50; // 50vh - 100vh
+      rocket.animate([
+        { transform: "translateY(0)" },
+        { transform: `translateY(-${maxHeight}vh)` }
+      ], { duration, easing: "ease-out", fill: "forwards" });
 
-  // مدة الصاروخ للوصول للارتفاع
-  const duration = 2000 + Math.random()*1000; // 2 - 3 ثواني
+      setTimeout(() => {
+        rocket.remove();
 
-  // تحريك الصاروخ
-  rocket.animate([
-    { transform: "translateY(0)" },
-    { transform: `translateY(-${maxHeight}vh)` }
-  ], {
-    duration: duration,
-    easing: "ease-out",
-    fill: "forwards"
-  });
+        const explosion = document.createElement("div");
+        explosion.className = "explosion";
+        explosion.style.left = left;
+        explosion.style.bottom = `calc(${maxHeight}vh - 30px)`;
+        document.body.appendChild(explosion);
 
-  // بعد انتهاء التحرك، انفجار
-  setTimeout(() => {
-    rocket.remove();
+        for (let i = 0; i < 10; i++) {
+          const particle = document.createElement("div");
+          particle.style.width = particle.style.height = (Math.random() * 10 + 5) + "px";
+          particle.style.background = ["#ff4d4d", "#ffeb3b", "#4d79ff", "#ff6ec4"][Math.floor(Math.random() * 4)];
+          particle.style.borderRadius = "50%";
+          particle.style.position = "absolute";
+          particle.style.left = "0";
+          particle.style.bottom = "0";
 
-    const explosion = document.createElement("div");
-    explosion.className = "explosion";
-    explosion.style.left = left;
-    explosion.style.bottom = `calc(${maxHeight}vh - 30px)`;
-    document.body.appendChild(explosion);
+          const x = (Math.random() * 120 - 60);
+          const y = (Math.random() * 120 - 60);
 
-    // إنشاء عدة دوائر صغيرة للانفجار
-    for (let i = 0; i < 8; i++) {
-      const particle = document.createElement("div");
-      particle.style.width = particle.style.height = (Math.random() * 10 + 5) + "px";
-      particle.style.background = ["#ff4d4d","#ffeb3b","#4d79ff","#ff6ec4"][Math.floor(Math.random()*4)];
-      particle.style.borderRadius = "50%";
-      particle.style.position = "absolute";
-      particle.style.left = "0";
-      particle.style.bottom = "0";
+          particle.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${x}px,${y}px)`, opacity: 0 }
+          ], { duration: 900, easing: "ease-out", fill: "forwards" });
 
-      const x = (Math.random()*100 - 50);
-      const y = (Math.random()*100 - 50);
+          explosion.appendChild(particle);
+        }
 
-      particle.animate([
-        { transform: "translate(0,0)", opacity: 1 },
-        { transform: `translate(${x}px,${y}px)`, opacity: 0 }
-      ], { duration: 800, easing: "ease-out", fill: "forwards" });
+        setTimeout(() => explosion.remove(), 1100);
+      }, duration);
+    }
+    let rocketTimer = setInterval(launchRocketRandom, 800);
 
-      explosion.appendChild(particle);
+    /* =========================
+       3) حفلة الساعة 12 (الجديد)
+    ========================= */
+    let midnightPartyStarted = false;
+
+    // ✅ لو انت فاتح الصفحة قبل 12.. هنستنى لحد 00:00 (بداية اليوم الجديد)
+    function getTonightMidnight() {
+      const now = new Date();
+      const mid = new Date(now);
+      mid.setHours(23, 49, 0, 0); // 00:00 بتاعت بكرة
+      return mid;
+    }
+// ىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىى
+    const tonightMidnight = getTonightMidnight();
+const birthdayLines = [
+  "Happy Birthday, DODO 🤍🎉",
+  "You deserve all the good things 🌸",
+  "The prettiest girl in the world ✨",
+  "The smartest girl ever 🧠💡",
+  "Engineer DODO 👩‍💻✨",
+  "Hope today makes you smile 😊",
+  "Another year, another win 🚀",
+  "You age well, not gonna lie 😌",
+  "22 suits you 💛",
+  "Wishing you good vibes only ✨🌿",
+  "Today’s about you 🎈",
+  "Keep being you 💫",
+  "Proud of you 🫶",
+  "Enjoy every moment 🎂🎊",
+  "Have the best day 🤍"
+];
+
+    function checkMidnight() {
+      if (midnightPartyStarted) return;
+      if (Date.now() >= tonightMidnight.getTime()) {
+        triggerMidnightParty();
+      }
+    }
+    setInterval(checkMidnight, 500);
+
+    function triggerMidnightParty() {
+      if (midnightPartyStarted) return;
+      midnightPartyStarted = true;
+    //   showAgeHandoverScene();
+      showAgeKnockoutScene();
+
+      const cd = document.getElementById("countdown");
+cd.style.transition = "all 1s ease";
+cd.style.opacity = "0";
+cd.style.transform = "scale(0.8)";
+setTimeout(() => cd.style.display = "none", 1000);
+
+const title = document.getElementById("mainTitle");
+
+// خروج العنوان القديم
+title.classList.add("title-out");
+
+// بعد ما يختفي… نغير الكلام وندخله بانيميشن
+setTimeout(() => {
+  title.textContent = "🎉 It’s DODO’s Day 🎉"; // غير الكلمة لو حابب
+  title.classList.remove("title-out");
+  title.classList.add("title-in");
+}, 800);
+
+      // ✅ رسالة كبيرة
+      const msg = document.getElementById("message");
+    //   msg.innerHTML = "🎉 Happy birthday Dodoooooooooooo❤️ 🎉";
+      msg.classList.add("birthday");
+
+      // ✅ زوّد كثافة الاحتفالات لمدة 20 ثانية
+      boostCelebrations(20000);
+
+      // ✅ مطر الرسايل
+      startMessageRain(18000);
+
+      // ✅ كونفيتي قوي
+      startConfetti(14000);
+
+      // ✅ قلوب طايرة
+      startHearts(14000);
     }
 
-    setTimeout(() => explosion.remove(), 1000);
+    function boostCelebrations(ms) {
+      // أسرع: بلالين / نار / صواريخ
+      clearInterval(balloonTimer);
+      clearInterval(fireTimer);
+      clearInterval(rocketTimer);
 
-  }, duration);
+      balloonTimer = setInterval(createBalloon, 220);
+      fireTimer = setInterval(createBigFirework, 220);
+      rocketTimer = setInterval(launchRocketRandom, 450);
+
+      // رجّع للوضع الطبيعي بعد مدة
+      setTimeout(() => {
+        clearInterval(balloonTimer);
+        clearInterval(fireTimer);
+        clearInterval(rocketTimer);
+
+        balloonTimer = setInterval(createBalloon, 500);
+        fireTimer = setInterval(createBigFirework, 500);
+        rocketTimer = setInterval(launchRocketRandom, 800);
+      }, ms);
+    }
+
+   function startMessageRain(ms) {
+  const interval = setInterval(() => {
+    const count = Math.floor(Math.random() * 3) + 3; // 3 إلى 5 جمل
+    for (let i = 0; i < count; i++) {
+      const text = birthdayLines[Math.floor(Math.random() * birthdayLines.length)];
+      createFallingMessage(text);
+    }
+  }, 900);
+
+  setTimeout(() => clearInterval(interval), ms);
 }
 
-// إطلاق صاروخ كل 0.8 ثانية
-setInterval(launchRocketRandom, 800);
+
+    function createFallingMessage(text) {
+      const el = document.createElement("div");
+      el.className = "falling-msg";
+      el.textContent = text;
+
+      const left = Math.random() * 90 + 5; // 5% - 95%
+      el.style.left = left + "vw";
+
+      const drift = (Math.random() * 180 - 90) + "px";
+      el.style.setProperty("--drift", drift);
+
+      const duration = (Math.random() * 2.5 + 3) + "s";
+      el.style.animationDuration = duration;
+
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), (parseFloat(duration) * 1000) + 200);
+    }
+
+    function startConfetti(ms) {
+      const interval = setInterval(() => {
+        for (let i = 0; i < 10; i++) createConfettiPiece();
+      }, 180);
+
+      setTimeout(() => clearInterval(interval), ms);
+    }
+
+    function createConfettiPiece() {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * 100 + "vw";
+
+      const w = Math.random() * 8 + 6;
+      const h = Math.random() * 10 + 10;
+      c.style.width = w + "px";
+      c.style.height = h + "px";
+
+      // لون عشوائي
+      const colors = ["#ff4d4d","#ffeb3b","#4d79ff","#ff6ec4","#7CFFCB","#FFFFFF"];
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+      const duration = (Math.random() * 2.8 + 2.2) + "s";
+      c.style.animationDuration = duration;
+
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), (parseFloat(duration) * 1000) + 200);
+    }
+
+    function startHearts(ms) {
+      const interval = setInterval(() => {
+        for (let i = 0; i < 4; i++) createFloatingHeart();
+      }, 220);
+
+      setTimeout(() => clearInterval(interval), ms);
+    }
+ function showAgeKnockoutScene(){
+  const scene = document.getElementById("ageScene");
+  const age21 = document.getElementById("age21");
+  const age22 = document.getElementById("age22");
+
+  // Reset
+  age21.className = "age-num";
+  age22.className = "age-num";
+  age21.id = "age21";
+  age22.id = "age22";
+
+  scene.classList.add("show");
+
+  // اهتزاز خفيف وقت الصدمة
+  function screenShake(){
+    document.body.animate(
+      [
+        { transform: "translateX(0)" },
+        { transform: "translateX(-8px)" },
+        { transform: "translateX(8px)" },
+        { transform: "translateX(0)" }
+      ],
+      { duration: 250, easing: "ease-out" }
+    );
+  }
+
+  // 22 تخبط
+  setTimeout(() => {
+    age22.classList.add("hit");
+  }, 300);
+
+  // الصدمة + طيران 21
+  setTimeout(() => {
+    age21.classList.add("flyout");
+    screenShake();
+    for(let i=0;i<25;i++) createConfettiPiece();
+  }, 650);
+
+  // 22 تثبت وتلمع
+  setTimeout(() => {
+    age22.classList.add("levelup");
+     burstCelebration(3800);
+  }, 900);
+
+  // إغلاق المشهد
+  setTimeout(() => {
+    scene.classList.remove("show");
+  }, 4000);
+}
+
+
+
+    function createFloatingHeart() {
+      const h = document.createElement("div");
+      h.className = "float-heart";
+      h.textContent = ["❤️","💖","💘","💕"][Math.floor(Math.random() * 4)];
+      h.style.left = Math.random() * 100 + "vw";
+      const duration = (Math.random() * 3 + 3) + "s";
+      h.style.animationDuration = duration;
+      h.style.fontSize = (Math.random() * 14 + 18) + "px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), (parseFloat(duration) * 1000) + 300);
+    }
+// 🎉 Burst احتفال سريع ومركز
+
 
   </script>
 </body>
