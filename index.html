@@ -431,6 +431,19 @@
     font-family: "Poppins", Arial, sans-serif;
     position: relative;
     }
+h1{
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 4.8vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1.15;          /* ✅ يمنع النزول */
+  display: inline-flex;        /* ✅ يخلي النص + الإيموجي على خط واحد */
+  align-items: center;         /* ✅ يرفع الإيموجي لمستوى النص */
+  justify-content: center;
+  gap: 8px;                    /* مسافة لطيفة بين العناصر */
+  animation: glow 2s infinite alternate;
+  white-space: nowrap;         /* ✅ يمنع كسر السطر */
+}
 
     .impact{
     width: min(360px, 88vw);
@@ -832,7 +845,7 @@
         function getTonightMidnight() {
         const now = new Date();
         const mid = new Date(now);
-        mid.setHours(23, 51, 0, 0); // 00:00 بتاعت بكرة
+        mid.setHours(24, 0, 0, 0); // 00:00 بتاعت بكرة
         return mid;
         }
     // ىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىىى
